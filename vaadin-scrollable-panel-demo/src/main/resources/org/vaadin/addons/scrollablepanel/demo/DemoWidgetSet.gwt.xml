@@ -7,7 +7,7 @@
     -->
 
     <!-- Inherit add-on widgetset -->
-    <inherits name="org.vaadin.addons.scrollablepanel.WidgetSet" />
+    
 
     <!--
      Uncomment the following to compile the widgetset for one browser only.
@@ -29,4 +29,10 @@
     -->
     <!-- <set-configuration-property name="devModeRedirectEnabled" value="true" /> -->
 
+
+    <inherits name="com.vaadin.DefaultWidgetSet" />
+
+    
+
+    <inherits name="org.vaadin.addons.scrollablepanel.WidgetSet" />
 </module>
