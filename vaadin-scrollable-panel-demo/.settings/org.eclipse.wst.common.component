@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="vaadin-scrollable-panel-demo">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="vaadin-scrollable-panel-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vaadin-scrollable-panel/vaadin-scrollable-panel">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="vaadin-scrollable-panel-demo"/>
+        <property name="java-output-path" value="/vaadin-scrollable-panel-demo/target/classes"/>
+        <property name="component.exclusion.patterns" value="**/VAADIN/gwt-unitCache/**,**/VAADIN/widgetsets/WEB-INF/**,**/WEB-INF/lib/servlet-api-*.jar,**/WEB-INF/lib/vaadin-client-*.jar,**/WEB-INF/lib/jetty-*.jar,**/WEB-INF/lib/ant-*.jar,**/WEB-INF/classes/gwt-unitCache/**,**/WEB-INF/classes/themes/**,**/WEB-INF/classes/widgetsets/**"/>
+    </wb-module>
+</project-modules>
