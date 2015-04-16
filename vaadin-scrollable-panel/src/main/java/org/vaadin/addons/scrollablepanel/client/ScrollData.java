@@ -2,10 +2,14 @@ package org.vaadin.addons.scrollablepanel.client;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class ScrollDetail implements Serializable {
+public class ScrollData implements Serializable {
 
-	private int top = 0, left = 0, bottom = 0, right = 0, scrollHeight = 0, scrollWidth = 0;
+	private int top = 0;
+	private int left = 0;
+	private int bottom = 0;
+	private int right = 0;
+	private int scrollHeight = 0;
+	private int scrollWidth = 0;
 
 	@Override
 	public String toString() {
@@ -20,6 +24,12 @@ public class ScrollDetail implements Serializable {
 		return sb.toString();
 	}
 
+	/**
+	 * Returns the top scroll amount in pixels (the number of top pixel rows
+	 * that are hidden because of the scroll position).
+	 *
+	 * @return the top scroll amount in pixels
+	 */
 	public int getTop() {
 		return this.top;
 	}
@@ -28,6 +38,12 @@ public class ScrollDetail implements Serializable {
 		this.top = top;
 	}
 
+	/**
+	 * Returns the left scroll amount in pixels (the number of left pixel
+	 * columns that are hidden because of the scroll position).
+	 *
+	 * @return the left scroll amount in pixels
+	 */
 	public int getLeft() {
 		return this.left;
 	}
@@ -36,6 +52,12 @@ public class ScrollDetail implements Serializable {
 		this.left = left;
 	}
 
+	/**
+	 * Returns the bottom scroll amount in pixels (the number of bottom pixel
+	 * rows that are hidden because of the scroll position).
+	 *
+	 * @return the bottom scroll amount in pixels
+	 */
 	public int getBottom() {
 		return this.bottom;
 	}
@@ -44,6 +66,12 @@ public class ScrollDetail implements Serializable {
 		this.bottom = bottom;
 	}
 
+	/**
+	 * Returns the right scroll amount in pixels (the number of right pixel
+	 * columns that are hidden because of the scroll position).
+	 *
+	 * @return the right scroll amount in pixels
+	 */
 	public int getRight() {
 		return this.right;
 	}
@@ -52,6 +80,11 @@ public class ScrollDetail implements Serializable {
 		this.right = right;
 	}
 
+	/**
+	 * Returns the height of the scrollable area in pixels.
+	 *
+	 * @return the height of the scrollable area in pixels
+	 */
 	public int getScrollHeight() {
 		return this.scrollHeight;
 	}
@@ -60,6 +93,11 @@ public class ScrollDetail implements Serializable {
 		this.scrollHeight = scrollHeight;
 	}
 
+	/**
+	 * Returns the width of the scrollable area in pixels.
+	 *
+	 * @return the width of the scrollable area in pixels
+	 */
 	public int getScrollWidth() {
 		return this.scrollWidth;
 	}
@@ -90,7 +128,7 @@ public class ScrollDetail implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final ScrollDetail other = (ScrollDetail) obj;
+		final ScrollData other = (ScrollData) obj;
 		if (this.left != other.left) {
 			return false;
 		}

@@ -1,1 +1,0 @@
-$wnd.org_vaadin_addons_scrollablepanel_demo_DemoWidgetSet.runAsyncCallback2('qab(1523,1,kKd);_.tc=function I8b(){RWb((!KWb&&(KWb=new WWb),KWb),this.a.d)};IDd(Qh)(2);\n//# sourceURL=org.vaadin.addons.scrollablepanel.demo.DemoWidgetSet-2.js\n')

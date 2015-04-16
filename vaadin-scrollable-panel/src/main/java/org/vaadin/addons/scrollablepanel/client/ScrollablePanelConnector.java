@@ -20,7 +20,7 @@ public class ScrollablePanelConnector extends AbstractSingleComponentContainerCo
 	ScrollEventHandler scrollHandler = new ScrollEventHandler() {
 
 		@Override
-		public void onScroll(final ScrollDetail detail) {
+		public void onScroll(final ScrollData detail) {
 			if (hasEventListener(ScrollablePanelState.EVENT_SCOLLED)) {
 				rpc.scrolled(detail);
 			}
@@ -32,7 +32,7 @@ public class ScrollablePanelConnector extends AbstractSingleComponentContainerCo
 
 	public ScrollablePanelConnector() {
 		super();
-		getWidget().setScrollHandlerTimed(scrollHandler);
+		getWidget().setTimedScrollHandler(scrollHandler);
 	}
 
 	@Override
@@ -60,8 +60,8 @@ public class ScrollablePanelConnector extends AbstractSingleComponentContainerCo
 	public void onStateChanged(final StateChangeEvent stateChangeEvent) {
 		super.onStateChanged(stateChangeEvent);
 
-		getWidget().setScrollX(getState().scrollX);
-		getWidget().setScrollY(getState().scrollY);
+		getWidget().setHorizontalScrollingEnabled(getState().horizontalScrollingEnabled);
+		getWidget().setVerticalScrollingEnabled(getState().verticalScrollingEnabled);
 		getWidget().setVerticalScrollPosition(getState().scrollTop);
 		getWidget().setHorizontalScrollPosition(getState().scrollLeft);
 
@@ -85,14 +85,12 @@ public class ScrollablePanelConnector extends AbstractSingleComponentContainerCo
 		if (uidlScrollTop != null) {
 			panel.setVerticalScrollPosition(uidlScrollTop.intValue());
 			// Read actual value back to ensure update logic is correct
-			// TODO Does this trigger reflows?
 			uidlScrollTop = null;
 		}
 
 		if (uidlScrollLeft != null) {
 			panel.setHorizontalScrollPosition(uidlScrollLeft.intValue());
 			// Read actual value back to ensure update logic is correct
-			// TODO Does this trigger reflows?
 			uidlScrollLeft = null;
 		}
 	}

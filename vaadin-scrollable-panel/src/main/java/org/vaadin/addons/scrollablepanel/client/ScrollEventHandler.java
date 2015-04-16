@@ -4,5 +4,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface ScrollEventHandler extends EventHandler {
 
-	void onScroll(ScrollDetail details);
+	void onScroll(ScrollData details);
 }

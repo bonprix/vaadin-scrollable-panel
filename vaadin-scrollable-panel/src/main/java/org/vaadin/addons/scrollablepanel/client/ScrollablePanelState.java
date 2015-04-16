@@ -11,8 +11,8 @@ public class ScrollablePanelState extends AbstractComponentState {
 		primaryStyleName = "v-scrollable-panel";
 	}
 	public int scrollEventDelayMillis;
-	public boolean scrollX = true;
-	public boolean scrollY = true;
+	public boolean horizontalScrollingEnabled = true;
+	public boolean verticalScrollingEnabled = true;
 
 	public int scrollTop = 0;
 	public int scrollLeft = 0;

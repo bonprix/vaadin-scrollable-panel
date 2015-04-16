@@ -3,7 +3,7 @@ package org.vaadin.addons.scrollablepanel;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-import org.vaadin.addons.scrollablepanel.client.ScrollDetail;
+import org.vaadin.addons.scrollablepanel.client.ScrollData;
 import org.vaadin.addons.scrollablepanel.client.ScrollablePanelServerRpc;
 import org.vaadin.addons.scrollablepanel.client.ScrollablePanelState;
 
@@ -12,22 +12,36 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.util.ReflectTools;
 
+/**
+ * The scrollable panel is a simple single component widget which supports
+ * reading and writing the scroll position data (when scrolling is enabled).
+ *
+ * @author Christian Thiel
+ *
+ */
 public class ScrollablePanel extends AbstractSingleComponentContainer {
 
 	private static final long serialVersionUID = -3031229036782875607L;
-	public static final int DEFAULT_SCROLL_EVENT_DELAY = 200;
-
-	private ScrollDetail scrollDetail;
 
 	/**
-	 * Creates a new empty panel.
+	 * The client side fires the scroll change after a given delay when no
+	 * additional scroll event occurred.
+	 */
+	public static final int DEFAULT_SCROLL_EVENT_DELAY = 200;
+
+	private ScrollData scrollData;
+
+	/**
+	 * Creates a new empty scrollable panel with horizontal and vertical
+	 * scrolling set to AUTO.
 	 */
 	public ScrollablePanel() {
 		this((ComponentContainer) null);
 	}
 
 	/**
-	 * Creates a new empty panel which contains the given content.
+	 * Creates a new empty panel which contains the given content and horizontal
+	 * and vertical scrolling set to AUTO.
 	 *
 	 * @param content
 	 *            the content for the panel.
@@ -44,52 +58,118 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 		return (ScrollablePanelState) super.getState();
 	}
 
+	/**
+	 * Returns the top scroll amount in pixels (the number of top pixel rows
+	 * that are hidden because of the scroll position).
+	 *
+	 * @return the top scroll amount in pixels
+	 */
+
 	public Integer getScrollTop() {
-		return scrollDetail != null ? scrollDetail.getTop() : null;
+		return scrollData != null ? scrollData.getTop() : null;
 	}
 
+	/**
+	 * Returns the left scroll amount in pixels (the number of left pixel
+	 * columns that are hidden because of the scroll position).
+	 *
+	 * @return the left scroll amount in pixels
+	 */
 	public Integer getScrollLeft() {
-		return scrollDetail != null ? scrollDetail.getLeft() : null;
+		return scrollData != null ? scrollData.getLeft() : null;
 	}
 
+	/**
+	 * Returns the width of the scrollable area in pixels.
+	 *
+	 * @return the width of the scrollable area in pixels
+	 */
 	public Integer getScrollWidth() {
-		return scrollDetail != null ? scrollDetail.getScrollWidth() : null;
+		return scrollData != null ? scrollData.getScrollWidth() : null;
 	}
 
+	/**
+	 * Returns the height of the scrollable area in pixels.
+	 *
+	 * @return the height of the scrollable area in pixels
+	 */
 	public Integer getScrollHeight() {
-		return scrollDetail != null ? scrollDetail.getScrollHeight() : null;
+		return scrollData != null ? scrollData.getScrollHeight() : null;
 	}
 
+	/**
+	 * Sets the top scroll position in pixel. This method does not check if the
+	 * target scroll position is a valid value. If an invalid value (out of
+	 * scroll range) is given, the result will depend on the executing browser.
+	 *
+	 * @param top
+	 *            the top scroll position
+	 */
 	public void setScrollTop(final int top) {
-		if (scrollDetail == null) {
-			scrollDetail = new ScrollDetail();
+		if (scrollData == null) {
+			scrollData = new ScrollData();
 		}
 
-		scrollDetail.setTop(top);
+		scrollData.setTop(top);
 		getState().scrollTop = top;
 	}
 
+	/**
+	 * Sets the left scroll position in pixel. This method does not check if the
+	 * target scroll position is a valid value. If an invalid value (out of
+	 * scroll range) is given, the result will depend on the executing browser.
+	 *
+	 * @param top
+	 *            the top scroll position
+	 */
 	public void setScrollLeft(final int left) {
-		if (scrollDetail == null) {
-			scrollDetail = new ScrollDetail();
+		if (scrollData == null) {
+			scrollData = new ScrollData();
 		}
 
-		scrollDetail.setLeft(left);
+		scrollData.setLeft(left);
 		getState().scrollLeft = left;
 	}
 
-	public void setScrollX(final boolean scrollX) {
-		getState().scrollX = scrollX;
+	/**
+	 * Defines, if horizontal scrolling is enabled. If true, the CSS overflow is
+	 * set to AUTO, otherwise HIDDEN.
+	 *
+	 * @param horizontalScrollingEnabled
+	 *            scrollOption
+	 */
+	public void setHorizontalScrollingEnabled(final boolean horizontalScrollingEnabled) {
+		getState().horizontalScrollingEnabled = horizontalScrollingEnabled;
 	}
 
-	public void setScrollY(final boolean scrollY) {
-		getState().scrollY = scrollY;
+	/**
+	 * Defines, if vertical scrolling is enabled. If true, the CSS overflow is
+	 * set to AUTO, otherwise HIDDEN.
+	 *
+	 * @param verticalScrollingEnabled
+	 *            scrollOption
+	 */
+	public void setVerticalScrollingEnabled(final boolean verticalScrollingEnabled) {
+		getState().verticalScrollingEnabled = verticalScrollingEnabled;
 	}
 
+	/**
+	 * The current event delay in milliseconds.
+	 *
+	 * @return the current event delay in milliseconds
+	 */
 	public Integer getScrollEventDelayMillis() {
 		return getState().scrollEventDelayMillis;
 	}
 
+	/**
+	 * Sets the event delay in millisenconds. The client side will wait the
+	 * given amount of milliseconds for any other scroll event on this component
+	 * before triggering an event.
+	 *
+	 * @param millis
+	 *            delay in ms
+	 */
 	public void setScrollEventDelayMillis(final int millis) {
 		getState().scrollEventDelayMillis = millis;
 	}
@@ -99,24 +179,24 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 	private final ScrollablePanelServerRpc rpc = new ScrollablePanelServerRpc() {
 
 		@Override
-		public void scrolled(final ScrollDetail detail) {
-			scrollDetail = detail;
+		public void scrolled(final ScrollData detail) {
+			scrollData = detail;
 
 			((ScrollablePanelState) getState(false)).scrollTop = detail.getTop();
 			((ScrollablePanelState) getState(false)).scrollLeft = detail.getLeft();
 
-			ScrollablePanel.this.fireEvent(new ScrolledEvent(ScrollablePanel.this, detail));
+			ScrollablePanel.this.fireEvent(new ScrollEvent(ScrollablePanel.this, detail));
 		}
 	};
 
-	public static class ScrolledEvent extends Component.Event {
+	public static class ScrollEvent extends Component.Event {
 
 		private static final long serialVersionUID = -4717161002326588670L;
-		private final ScrollDetail detail;
+		private final ScrollData scrollData;
 
-		public ScrolledEvent(final Component component, final ScrollDetail detail) {
+		public ScrollEvent(final Component component, final ScrollData scrollData) {
 			super(component);
-			this.detail = detail;
+			this.scrollData = scrollData;
 		}
 
 		/**
@@ -128,35 +208,79 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 			return (ScrollablePanel) getSource();
 		}
 
+		/**
+		 * Returns the top scroll amount in pixels (the number of top pixel rows
+		 * that are hidden because of the scroll position).
+		 *
+		 * @return the top scroll amount in pixels
+		 */
 		public Integer getTop() {
-			return detail.getTop();
+			return scrollData.getTop();
 		}
 
+		/**
+		 * Returns the left scroll amount in pixels (the number of left pixel
+		 * columns that are hidden because of the scroll position).
+		 *
+		 * @return the left scroll amount in pixels
+		 */
 		public Integer getLeft() {
-			return detail.getLeft();
+			return scrollData.getLeft();
 		}
 
+		/**
+		 * Returns the height of the scrollable area in pixels.
+		 *
+		 * @return the height of the scrollable area in pixels
+		 */
 		public Integer getScrollHeight() {
-			return detail.getScrollHeight();
+			return scrollData.getScrollHeight();
 		}
 
+		/**
+		 * Returns the width of the scrollable area in pixels.
+		 *
+		 * @return the width of the scrollable area in pixels
+		 */
 		public Integer getScrollWidth() {
-			return detail.getScrollWidth();
+			return scrollData.getScrollWidth();
 		}
 
-		public ScrollDetail getDetail() {
-			return detail;
+		/**
+		 * Returns the scroll data object.
+		 * 
+		 * @return the scroll data object
+		 */
+		public ScrollData getScrollData() {
+			return scrollData;
 		}
 	};
 
-	public interface ScrolledListener extends Serializable {
-		public static final Method SCROLLPANEL_SCROLLED_METHOD = ReflectTools.findMethod(ScrolledListener.class, "scrolled", ScrolledEvent.class);
+	public interface ScrollListener extends Serializable {
+		public static final Method SCROLLPANEL_SCROLL_METHOD = ReflectTools.findMethod(ScrollListener.class, "onScroll", ScrollEvent.class);
 
-		public void scrolled(final ScrolledEvent event);
+		public void onScroll(final ScrollEvent event);
 	}
 
-	public void addScrolledListener(final ScrolledListener listener) {
-		addListener(ScrollablePanelState.EVENT_SCOLLED, ScrolledEvent.class, listener, ScrolledListener.SCROLLPANEL_SCROLLED_METHOD);
+	/**
+	 * Adds a scroll listener. This listener will be called when a scrollEvent
+	 * occurs.
+	 *
+	 * @param listener
+	 *            the listener to add
+	 */
+	public void addScrollListener(final ScrollListener listener) {
+		addListener(ScrollablePanelState.EVENT_SCOLLED, ScrollEvent.class, listener, ScrollListener.SCROLLPANEL_SCROLL_METHOD);
+	}
+
+	/**
+	 * Removes a scroll listener
+	 *
+	 * @param listener
+	 *            the listener to remove
+	 */
+	public void removeScrollListener(final ScrollListener listener) {
+		removeListener(ScrollEvent.class, listener, ScrollListener.SCROLLPANEL_SCROLL_METHOD);
 	}
 
 }

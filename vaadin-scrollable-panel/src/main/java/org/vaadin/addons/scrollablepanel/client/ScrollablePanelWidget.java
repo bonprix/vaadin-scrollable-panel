@@ -11,15 +11,14 @@ import com.vaadin.client.ui.VLazyExecutor;
 
 public class ScrollablePanelWidget extends ScrollPanel {
 
-	public static final String CLASSNAME = "v-scrollable-panel";
-	ScrollEventHandler timedHandler = null;
-	VLazyExecutor executor = null;
+	private ScrollEventHandler timedHandler = null;
+	private VLazyExecutor executor = null;
 
-	int scrollEventDelayMillis = 200;
-	ScrollDetail lastSentScrollPos, currentScrollingPos;
+	private int scrollEventDelayMillis = 200;
+	private ScrollData lastSentScrollPos, currentScrollingPos;
 
-	private boolean scrollX = true;
-	private boolean scrollY = true;
+	private boolean horizontalScrollingEnabled = true;
+	private boolean verticalScrollingEnabled = true;
 
 	public ScrollablePanelWidget() {
 		super();
@@ -28,7 +27,7 @@ public class ScrollablePanelWidget extends ScrollPanel {
 		addScrollHandler(new ScrollHandler() {
 			@Override
 			public void onScroll(final ScrollEvent event) {
-				ScrollablePanelWidget.this.currentScrollingPos = new ScrollDetail();
+				ScrollablePanelWidget.this.currentScrollingPos = new ScrollData();
 
 				if (event != null && event.getRelativeElement() != null) {
 					final Element e = event.getRelativeElement();
@@ -70,7 +69,7 @@ public class ScrollablePanelWidget extends ScrollPanel {
 		return super.addScrollHandler(handler);
 	}
 
-	public void setScrollHandlerTimed(final ScrollEventHandler handler) {
+	public void setTimedScrollHandler(final ScrollEventHandler handler) {
 		this.timedHandler = handler;
 	}
 
@@ -78,22 +77,22 @@ public class ScrollablePanelWidget extends ScrollPanel {
 		this.scrollEventDelayMillis = scrollEventDelayMillis;
 	}
 
-	public boolean isScrollX() {
-		return this.scrollX;
+	public boolean isHorizontalScrollingEnabled() {
+		return this.horizontalScrollingEnabled;
 	}
 
-	public void setScrollX(final boolean scrollX) {
-		getElement().getStyle().setOverflowX(scrollX ? Overflow.AUTO : Overflow.HIDDEN);
-		this.scrollX = scrollX;
+	public void setHorizontalScrollingEnabled(final boolean horizontalScrollingEnabled) {
+		getElement().getStyle().setOverflowX(horizontalScrollingEnabled ? Overflow.AUTO : Overflow.HIDDEN);
+		this.horizontalScrollingEnabled = horizontalScrollingEnabled;
 	}
 
-	public boolean isScrollY() {
-		return this.scrollY;
+	public boolean isVerticalScrollingEnabled() {
+		return this.verticalScrollingEnabled;
 	}
 
-	public void setScrollY(final boolean scrollY) {
-		getElement().getStyle().setOverflowY(scrollY ? Overflow.AUTO : Overflow.HIDDEN);
-		this.scrollY = scrollY;
+	public void setVerticalScrollingEnabled(final boolean verticalScrollingEnabled) {
+		getElement().getStyle().setOverflowY(verticalScrollingEnabled ? Overflow.AUTO : Overflow.HIDDEN);
+		this.verticalScrollingEnabled = verticalScrollingEnabled;
 	}
 
 }
