@@ -1,59 +1,51 @@
 # MyComponent Add-on for Vaadin 7
 
-MyComponent is an UI component add-on for Vaadin 7.
+The ScrollablePanel is a panel layout component which allows the user to read the current scroll position of the scrollable content.
+
+Features:
+- scroll notification listener: get notified on server-side when the user scrolls the content
+- scroll control: set the scroll position from server-side
+- theme: no further default CSS-styling, no borders, captions and paddings (unlike the default Panel component)
+
 
 ## Online demo
 
-Try the add-on demo at <url of the online demo>
+Pending...
 
 ## Download release
 
 Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to http://vaadin.com/addon/vaadin-scrollable-panel
 
+## Usage
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>org.vaadin.addons</groupId>
+	<artifactId>vaadin-scrollable-panel</artifactId>
+	<version>1.0</version>
+</dependency>
+```
+
+###Widgetset
+```xml
+<inherits name="org.vaadin.addons.scrollablepanel.WidgetSet" />
+```
+
 ## Building and running demo
 
-git clone <url of the MyComponent repository>
+git clone https://github.com/bonprix/vaadin-scrollable-panel
 mvn clean install
-cd demo
+cd vaadin-scrollable-panel-demo
 mvn jetty:run
 
 To see the demo, navigate to http://localhost:8080/
-
-## Development with Eclipse IDE
-
-For further development of this add-on, the following tool-chain is recommended:
-- Eclipse IDE
-- m2e wtp plug-in (install it from Eclipse Marketplace)
-- Vaadin Eclipse plug-in (install it from Eclipse Marketplace)
-- JRebel Eclipse plug-in (install it from Eclipse Marketplace)
-- Chrome browser
-
-### Importing project
-
-Choose File > Import... > Existing Maven Projects
-
-Note that Eclipse may give "Plugin execution not covered by lifecycle configuration" errors for pom.xml. Use "Permanently mark goal resources in pom.xml as ignored in Eclipse build" quick-fix to mark these errors as permanently ignored in your project. Do not worry, the project still works fine. 
-
-### Debugging server-side
-
-If you have not already compiled the widgetset, do it now by running vaadin:install Maven target for vaadin-scrollable-panel-root project.
-
-If you have a JRebel license, it makes on the fly code changes faster. Just add JRebel nature to your vaadin-scrollable-panel-demo project by clicking project with right mouse button and choosing JRebel > Add JRebel Nature
-
-To debug project and make code modifications on the fly in the server-side, right-click the vaadin-scrollable-panel-demo project and choose Debug As > Debug on Server. Navigate to http://localhost:8080/vaadin-scrollable-panel-demo/ to see the application.
-
-### Debugging client-side
-
-The most common way of debugging and making changes to the client-side code is dev-mode. To create debug configuration for it, open vaadin-scrollable-panel-demo project properties and click "Create Development Mode Launch" button on the Vaadin tab. Right-click newly added "GWT development mode for vaadin-scrollable-panel-demo.launch" and choose Debug As > Debug Configurations... Open up Classpath tab for the development mode configuration and choose User Entries. Click Advanced... and select Add Folders. Choose Java and Resources under vaadin-scrollable-panel/src/main and click ok. Now you are ready to start debugging the client-side code by clicking debug. Click Launch Default Browser button in the GWT Development Mode in the launched application. Now you can modify and breakpoints to client-side classes and see changes by reloading the web page. 
-
-Another way of debugging client-side is superdev mode. To enable it, uncomment devModeRedirectEnabled line from the end of DemoWidgetSet.gwt.xml located under vaadin-scrollable-panel-demo resources folder and compile the widgetset once by running vaadin:compile Maven target for vaadin-scrollable-panel-demo. Refresh vaadin-scrollable-panel-demo project resources by right clicking the project and choosing Refresh. Click "Create SuperDevMode Launch" button on the Vaadin tab of the vaadin-scrollable-panel-demo project properties panel to create superder mode code server launch configuration and modify the class path as instructed above. After starting the code server by running SuperDevMode launch as Java application, you can navigate to http://localhost:8080/vaadin-scrollable-panel-demo/?superdevmode. Now all code changes you do to your client side will get compiled as soon as you reload the web page. You can also access Java-sources and set breakpoints inside Chrome if you enable source maps from inspector settings. 
-
  
 ## Release notes
 
-### Version 1.0-SNAPSHOT
-- ...
-- ...
+### Version 1.0
+- initial release of the addon.
 
 ## Roadmap
 
@@ -79,7 +71,8 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 
 Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-MyComponent is written by <...>
+vaadin-scrollable-panel is written by members of Bonprix Handelsgesellschaft mbh:
+- Christian Thiel
 
 # Developer Guide
 
@@ -87,24 +80,25 @@ MyComponent is written by <...>
 
 Here is a simple example on how to try out the add-on component:
 
-<...>
+```java
 
-For a more comprehensive example, see src/test/java/org/vaadin/template/demo/DemoUI.java
+// Initialize the scroll panel with a inner component bigger than the available space
+final ScrollablePanel scrollablePanel = new ScrollablePanel(scrollContent);
+scrollablePanel.setSizeFull();
 
-## Features
+scrollablePanel.setScrollTop(100); // set some vertical scroll position
 
-### Feature A
+// add a scroll listener
+scrollablePanel.addScrollListener(new ScrollListener() {
+	
+	@Override
+	public void onScroll(final ScrollEvent event) {
+		Notification.show("Scrolled: " + event.getScrollData().toString());
+	}
+});
 
-<...>
 
-### Feature B
+´´´
 
-<...>
 
-### Feature C
-
-<...>
-
-## API
-
-MyComponent JavaDoc is available online at <...>
+For a more comprehensive example, see src/main/java/org/vaadin/addons/scrollablepanel/demo/DemoUI.java
