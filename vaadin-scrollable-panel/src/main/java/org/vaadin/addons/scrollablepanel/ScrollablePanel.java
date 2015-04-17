@@ -119,8 +119,8 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 	 * target scroll position is a valid value. If an invalid value (out of
 	 * scroll range) is given, the result will depend on the executing browser.
 	 *
-	 * @param top
-	 *            the top scroll position
+	 * @param left
+	 *            the left scroll position
 	 */
 	public void setScrollLeft(final int left) {
 		if (scrollData == null) {
@@ -202,7 +202,7 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 		/**
 		 * The ScrollablePanel itself
 		 *
-		 * @return
+		 * @return the scrollable panel
 		 */
 		public ScrollablePanel getScrollablePanel() {
 			return (ScrollablePanel) getSource();
@@ -229,6 +229,26 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 		}
 
 		/**
+		 * Returns the right scroll amount in pixels (the number of right pixel
+		 * columns that are hidden because of the scroll position).
+		 *
+		 * @return the right scroll amount in pixels
+		 */
+		public Integer getRight() {
+			return scrollData.getRight();
+		}
+
+		/**
+		 * Returns the bottom scroll amount in pixels (the number of bottom
+		 * pixel rows that are hidden because of the scroll position).
+		 *
+		 * @return the bottom scroll amount in pixels
+		 */
+		public Integer getBottom() {
+			return scrollData.getLeft();
+		}
+
+		/**
 		 * Returns the height of the scrollable area in pixels.
 		 *
 		 * @return the height of the scrollable area in pixels
@@ -248,7 +268,7 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 
 		/**
 		 * Returns the scroll data object.
-		 * 
+		 *
 		 * @return the scroll data object
 		 */
 		public ScrollData getScrollData() {

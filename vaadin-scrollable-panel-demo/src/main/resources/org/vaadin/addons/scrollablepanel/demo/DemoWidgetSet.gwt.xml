@@ -34,5 +34,7 @@
 
     
 
+    
+
     <inherits name="org.vaadin.addons.scrollablepanel.WidgetSet" />
 </module>
