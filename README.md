@@ -1,4 +1,4 @@
-# MyComponent Add-on for Vaadin 7
+# ScrollablePanel Add-on for Vaadin 7
 
 The ScrollablePanel is a panel layout component which allows the user to read the current scroll position of the scrollable content.
 
@@ -49,9 +49,7 @@ To see the demo, navigate to http://localhost:8080/
 
 ## Roadmap
 
-This component is developed as a hobby with no public roadmap or any guarantees of upcoming releases. That said, the following features are planned for upcoming releases:
-- ...
-- ...
+There is no future roadmap for this widget.
 
 ## Issue tracking
 
@@ -69,7 +67,7 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 
 ## License & Author
 
-Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
+Add-on is distributed under MIT License. For license terms, see LICENSE.txt.
 
 vaadin-scrollable-panel is written by members of Bonprix Handelsgesellschaft mbh:
 - Christian Thiel
@@ -98,7 +96,6 @@ scrollablePanel.addScrollListener(new ScrollListener() {
 });
 
 
-´´´
-
+```
 
 For a more comprehensive example, see src/main/java/org/vaadin/addons/scrollablepanel/demo/DemoUI.java
