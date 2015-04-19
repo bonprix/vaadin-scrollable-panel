@@ -70,7 +70,8 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 Add-on is distributed under MIT License. For license terms, see LICENSE.txt.
 
 vaadin-scrollable-panel is written by members of Bonprix Handelsgesellschaft mbh:
-- Christian Thiel
+- Christian Thiel (https://github.com/stoerti)
+- Marten Priess (https://github.com/melistik)
 
 # Developer Guide
 

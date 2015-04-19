@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="vaadin-scrollable-panel-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vaadin-scrollable-panel/vaadin-scrollable-panel">
+        <dependent-module archiveName="vaadin-scrollable-panel-1.0.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vaadin-scrollable-panel/vaadin-scrollable-panel">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="vaadin-scrollable-panel-demo"/>
