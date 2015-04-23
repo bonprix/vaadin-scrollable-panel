@@ -4,7 +4,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-scrollable-panel</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>ScrollablePanel Add-on</name>
 	<description>A panel with ability to read and write the scroll position of the content</description>
 	<url>https://github.com/bonprix/vaadin-scrollable-panel</url>
