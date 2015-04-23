@@ -245,7 +245,7 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 		 * @return the bottom scroll amount in pixels
 		 */
 		public Integer getBottom() {
-			return scrollData.getLeft();
+			return scrollData.getBottom();
 		}
 
 		/**
