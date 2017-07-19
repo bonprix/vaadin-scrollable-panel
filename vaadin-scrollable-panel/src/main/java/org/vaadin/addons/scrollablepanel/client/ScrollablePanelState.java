@@ -1,19 +1,19 @@
 package org.vaadin.addons.scrollablepanel.client;
 
-import com.vaadin.shared.AbstractComponentState;
+import com.vaadin.shared.ui.AbstractSingleComponentContainerState;
 
 @SuppressWarnings("serial")
-public class ScrollablePanelState extends AbstractComponentState {
+public class ScrollablePanelState extends AbstractSingleComponentContainerState { // AbstractComponentState
 
-	public static final String EVENT_SCOLLED = "scrollablePanelScrolled";
+    public static final String EVENT_SCOLLED = "scrollablePanelScrolled";
 
-	{
-		primaryStyleName = "v-scrollable-panel";
-	}
-	public int scrollEventDelayMillis;
-	public boolean horizontalScrollingEnabled = true;
-	public boolean verticalScrollingEnabled = true;
+    {
+        this.primaryStyleName = "v-scrollable-panel";
+    }
+    public int scrollEventDelayMillis;
+    public boolean horizontalScrollingEnabled = true;
+    public boolean verticalScrollingEnabled = true;
 
-	public int scrollTop = 0;
-	public int scrollLeft = 0;
+    public int scrollTop = 0;
+    public int scrollLeft = 0;
 }
