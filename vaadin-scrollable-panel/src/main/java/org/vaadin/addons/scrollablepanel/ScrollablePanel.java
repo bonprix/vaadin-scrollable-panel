@@ -174,6 +174,23 @@ public class ScrollablePanel extends AbstractSingleComponentContainer {
 		getState().scrollEventDelayMillis = millis;
 	}
 
+
+	/**
+	 * If true an event will be sent even when scroll position
+	 * was changed and returned to initial position within scrollEventDelay.
+	 */
+	public boolean isSendScrollPosWhenUnchanged() {
+		return getState().sendScrollPosWhenUnchanged;
+	}
+
+	/**
+	 * Sets whether an event should be sent even when scroll position
+	 * was changed and returned to initial position within scrollEventDelay.
+	 */
+	public void setSendScrollPosWhenUnchanged(boolean sendScrollPosWhenUnchanged) {
+		getState().sendScrollPosWhenUnchanged = sendScrollPosWhenUnchanged;
+	}
+
 	// Listener
 	@SuppressWarnings("serial")
 	private final ScrollablePanelServerRpc rpc = new ScrollablePanelServerRpc() {
