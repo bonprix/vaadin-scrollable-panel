@@ -19,6 +19,7 @@ public class ScrollablePanelWidget extends ScrollPanel {
 
 	private boolean horizontalScrollingEnabled = true;
 	private boolean verticalScrollingEnabled = true;
+	private boolean sendScrollPosWhenUnchanged = false;
 
 	public ScrollablePanelWidget() {
 		super();
@@ -51,10 +52,8 @@ public class ScrollablePanelWidget extends ScrollPanel {
 			this.executor = new VLazyExecutor(this.scrollEventDelayMillis, new ScheduledCommand() {
 				@Override
 				public void execute() {
-					if (ScrollablePanelWidget.this.timedHandler != null
-					        && ScrollablePanelWidget.this.currentScrollingPos != null
-					        && (ScrollablePanelWidget.this.lastSentScrollPos == null || !ScrollablePanelWidget.this.currentScrollingPos
-					                .equals(ScrollablePanelWidget.this.lastSentScrollPos))) {
+                    if (timedHandler != null && currentScrollingPos != null
+                            && (sendScrollPosWhenUnchanged || !currentScrollingPos.equals(lastSentScrollPos))) {
 						ScrollablePanelWidget.this.timedHandler.onScroll(ScrollablePanelWidget.this.currentScrollingPos);
 						ScrollablePanelWidget.this.lastSentScrollPos = ScrollablePanelWidget.this.currentScrollingPos;
 					}
@@ -95,4 +94,11 @@ public class ScrollablePanelWidget extends ScrollPanel {
 		this.verticalScrollingEnabled = verticalScrollingEnabled;
 	}
 
+    public boolean isSendScrollPosWhenUnchanged() {
+        return sendScrollPosWhenUnchanged;
+    }
+
+    public void setSendScrollPosWhenUnchanged(boolean sendScrollPosWhenUnchanged) {
+        this.sendScrollPosWhenUnchanged = sendScrollPosWhenUnchanged;
+    }
 }

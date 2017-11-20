@@ -13,6 +13,7 @@ public class ScrollablePanelState extends AbstractComponentState {
 	public int scrollEventDelayMillis;
 	public boolean horizontalScrollingEnabled = true;
 	public boolean verticalScrollingEnabled = true;
+	public boolean sendScrollPosWhenUnchanged = false;
 
 	public int scrollTop = 0;
 	public int scrollLeft = 0;
